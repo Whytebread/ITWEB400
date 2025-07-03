@@ -1,0 +1,180 @@
+import React, { useState } from 'react';
+import CatchEntry from '../Components/CatchEntry.jsx';
+import { Link } from 'react-router-dom';
+
+// ensures the form is blank and so initialData can contain data that may need to be edited in the future
+function TripForm({ onSubmit, initialData = null }) {
+    const [formData, setFormData] = useState(
+        initialData || {
+            bodyOfWater: '',
+            catchDate: '',
+            weather: '',
+            notes: '',
+            catches: [{ species: '', weight: '', length: '', bait: '' }],
+        }
+    );
+
+    // records the values submitted in the input fields
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    // adds the input data for fish caught
+    const addCatch = () => {
+        setFormData({
+            ...formData,
+            catches: [...formData.catches, { species: '', weight: '', length: '', bait: '' }],
+        });
+    };
+
+    // adds the new catches to the array
+    const handleCatchChange = (index, updatedCatch) => {
+        const newCatches = [...formData.catches];
+        newCatches[index] = updatedCatch;
+        setFormData({ ...formData, catches: newCatches });
+    };
+
+    // removes the data of the entered catch from the array after delete is clicked
+    const handleRemoveCatch = (index) => {
+        const newCatches = formData.catches.filter((_, i) => i !== index);
+        setFormData({ ...formData, catches: newCatches });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSubmit(formData); // sends all the data to AddTrip (or EditTrip)
+    };
+
+    return (
+
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "40px 20px"
+        }}>
+            <div className="form-container">
+                <h2 style={{ color: '#2B7A78' }}>{initialData ? 'Edit Trip' : 'Add New Trip'}</h2>
+
+                <form style={{
+                    backgroundColor: '#FFFFFF',
+                    padding: '24px',
+                    borderRadius: '12px',
+                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+                    maxWidth: '600px',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '16px'
+                }} onSubmit={handleSubmit}>
+
+                    <div className="form-group">
+                        <label>Body of Water</label>
+                        <input
+                            type="text"
+                            placeholder="Lake, stream, river, pond"
+                            value={formData.bodyOfWater}
+                            onChange={handleInputChange}
+                            style={inputStyle}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Date</label>
+                        <input
+                            type="date"
+                            value={formData.catchDate}
+                            onChange={handleInputChange}
+                            style={inputStyle}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Weather</label>
+                        <input
+                            type="text"
+                            placeholder="Weather (e.g., Sunny, 74°F)"
+                            value={formData.weather}
+                            onChange={handleInputChange}
+                            style={inputStyle}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Notes</label>
+                        <textarea
+                            placeholder="Add additional notes (e.g., Best luck near reeds)"
+                            value={formData.notes}
+                            onChange={handleInputChange}
+                            rows={3}
+                            style={{ ...inputStyle, resize: 'vertical' }}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Catches</label>
+                        {formData.catches.map((catchData, index) => (
+                            <div key={index}>
+                                <CatchEntry
+                                    index={index}
+                                    catchData={catchData}
+                                    onChange={handleCatchChange}
+                                    onRemove={handleRemoveCatch}
+                                />
+                            </div>
+                        ))}
+                        <button type="button" className="btn-add-catch" onClick={addCatch}>
+                            + Add Catch
+                        </button>
+                    </div>
+
+
+                    <button type="button" style={buttonSecondary}>Cancel</button>
+
+                    <button type="submit" style={buttonPrimary}>Save Trip</button>
+                </form>
+            </div>
+
+            <Link to="/" style={{ marginTop: '20px', color: '#2B7A78', textDecoration: 'underline' }}>
+                ← Back to Dashboard
+            </Link>
+        </div >
+
+    );
+};
+
+
+const inputStyle = {
+    padding: '10px 12px',
+    fontSize: '16px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    width: '100%'
+};
+
+
+const buttonPrimary = {
+    backgroundColor: '#3AAFA9',
+    color: '#FFFFFF',
+    padding: '12px',
+    fontSize: '16px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer'
+};
+
+const buttonSecondary = {
+    backgroundColor: '#2B7A78',
+    color: '#FFFFFF',
+    padding: '10px',
+    fontSize: '15px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer'
+};
+
+
+export default TripForm;

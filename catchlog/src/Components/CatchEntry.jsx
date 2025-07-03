@@ -15,12 +15,12 @@ function CatchEntry({ index, catchData, onChange, onRemove }) { //props passed i
 
     return (
         <div style={{
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            padding: '16px',
-            marginBottom: '16px',
-            backgroundColor: '#f9f9f9',
-            position: 'relative'
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            padding: "16px",
+            marginBottom: "16px",
+            backgroundColor: "#f9f9f9",
+            position: "relative"
         }}>
             <h3 style={{ marginTop: 0 }}>Catch {index + 1}</h3>
 
@@ -73,25 +73,25 @@ function CatchEntry({ index, catchData, onChange, onRemove }) { //props passed i
 
 
 const inputStyle = {
-    display: 'block',
-    width: '100%',
-    padding: '10px',
-    marginBottom: '12px',
-    borderRadius: '6px',
-    border: '1px solid #ccc',
-    fontSize: '15px'
+    display: "block",
+    width: "100%",
+    padding: "10px",
+    marginBottom: "12px",
+    borderRadius: "6px",
+    border: "1px solid #ccc",
+    fontSize: "15px"
 };
 
 const removeButtonStyle = {
-    backgroundColor: '#FF5C5C',
-    color: '#fff',
-    border: 'none',
-    padding: '8px 12px',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    position: 'absolute',
-    right: '16px',
-    top: '16px'
+    backgroundColor: "#FF5C5C",
+    color: "#fff",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    position: "absolute",
+    right: "16px",
+    top: "16px"
 };
 
 export default CatchEntry;

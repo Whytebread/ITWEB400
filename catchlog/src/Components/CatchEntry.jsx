@@ -26,15 +26,17 @@ function CatchEntry({ index, catchData, onChange, onRemove }) { //props passed i
             <h3 style={{ marginTop: 0 }}>Catch {index + 1}</h3>
 
             <input
+                label="Species"
                 type="text"
                 name="species"
-                placeholder="Species"
+                placeholder="Bass, Perch, Pike"
                 value={catchData.species}
                 onChange={handleChange}
                 style={inputStyle}
             />
 
             <input
+                label="Length"
                 type="number"
                 name="length"
                 placeholder="Length (inches)"
@@ -44,15 +46,17 @@ function CatchEntry({ index, catchData, onChange, onRemove }) { //props passed i
             />
 
             <input
+                label="Weight"
                 type="number"
                 name="weight"
-                placeholder="Weight (lbs)"
+                placeholder="Pounds (lbs)"
                 value={catchData.weight}
                 onChange={handleChange}
                 style={inputStyle}
             />
 
             <input
+                label="Bait"
                 type="text"
                 name="bait"
                 placeholder="Worms, minnows, lure"

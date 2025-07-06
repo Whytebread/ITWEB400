@@ -1,4 +1,4 @@
-import Reac, { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TripCard from '../Components/TripCard';
 import Modal from '../Components/Modal';
@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 // ********IMPROVEMENTS/CHANGES*********//
 // need to have add trip button show if there are no trip cards populated
 
-function Dashboard({ trips }) {
+function Dashboard() {
 
+  const [trips, setTrips] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [tripToDelete, setTripToDelete] = useState(null);
   const [tripToEdit, setTripToEdit] = useState(null);
@@ -30,6 +31,11 @@ const confirmDelete = () => {
 const cancelDelete = () => {
   setTripToDelete(null);
   setShowModal(false);
+};
+
+// passes the trip data and allows editing in the tripForm component
+const handleEdit = (trip, index) => {
+  Navigate("/edit", { state: { initialData: { ...trip, index } } });
 };
 
 // allows navigation to the add trip page after the edit button is clicked

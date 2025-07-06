@@ -1,15 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import TripForm from '../Components/TripForm.jsx';
-import { useLocation } from 'react-router-dom';
 
-function AddTrip({ onSave }) {
+function AddTrip({ onSave, onEdit }) {
     const navigate = useNavigate();
     const location = useLocation();
     const initialData = location.state?.initialData;
 
     const handleTripSubmit = (tripData) => {
-        onSave(tripData);
+        if (initialData && initialData.index !== undefined) {
+            // Edit mode
+            onEdit({ ...tripData, index: initialData.index });
+        } else {
+            // Add mode
+            onSave(tripData);
+        }
         navigate('/');
     };
 

@@ -4,6 +4,7 @@ import React from 'react';
 // add input focus
 // add hover to buttons
 // input validation
+// Catch added! display with a green background
 
 function CatchEntry({ index, catchData, onChange, onRemove }) { //props passed into catchEntry
     const handleChange = (e) => { //extracts the input data and puts it into catchData

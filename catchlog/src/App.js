@@ -4,11 +4,17 @@ import Dashboard from "./Pages/Dashboard";
 import AddTrip from "./Pages/AddTrip";
 
 function App() {
+  const [trips, setTrips] = useState([]);
+
+  const handleTripSave = (tripData) => {
+    setTrips(prev => [...prev, tripData]);
+  };
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/add" element={<AddTrip />} />
+        <Route path="/" element={<Dashboard trips={trips} />} />
+        <Route path="/add" element={<AddTrip onSave={handleTripSave} />} />
       </Routes>
     </Router>
   );

@@ -1,9 +1,39 @@
-import React from 'react';
+import Reac, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import TripCard from '../Components/TripCard';
+import Modal from '../Components/Modal';
+import { useNavigate } from 'react-router-dom';
 
-function Dashboard() {
-  const trips = []; //will hold trip card data but will start empty if no trips logged
+// ********IMPROVEMENTS/CHANGES*********//
+// need to have add trip button show if there are no trip cards populated
 
+function Dashboard({ trips }) {
+
+  const [showModal, setShowModal] = useState(false);
+  const [tripToDelete, setTripToDelete] = useState(null);
+  const [tripToEdit, setTripToEdit] = useState(null);
+
+  // shows the modal to confirm delete when delete button is clicked
+  const handleRequestDelete = (trip) => {
+  setTripToDelete(trip);
+  setShowModal(true);
+};
+
+// deletes the trip data shown in the card when the confirm delete button is clicked
+const confirmDelete = () => {
+  setTrips(prevTrips => prevTrips.filter(t => t !== tripToDelete));
+  setTripToDelete(null);
+  setShowModal(false);
+};
+
+// cancels the delete action and closes the modal
+const cancelDelete = () => {
+  setTripToDelete(null);
+  setShowModal(false);
+};
+
+// allows navigation to the add trip page after the edit button is clicked
+const Navigate = useNavigate();
 
   return (
     <div style={{ backgroundColor: "#DEF2F1", minHeight: "100vh" }}>
@@ -57,11 +87,43 @@ function Dashboard() {
       ) : (
         <div>
           {/* loop through trips and display each */}
+
+          <div style= {cardGridStyle}>
+          {trips.map((trip, index) => (
+            <TripCard
+              key={index}
+              trip={trip}
+              onEdit={() => {
+                setTripToEdit(trip);
+                Navigate('/add', {state: {initialData: trip } });
+               }}
+              onRequestDelete={handleRequestDelete}
+            />
+          ))}
+          </div>
+
           <p>You have {trips.length} trips logged.</p>
+
+          {showModal && (
+            <Modal
+              message="Are you sure you want to delete this trip? This action cannot be undone. Are you sure you want to continue?"
+              onConfirm={confirmDelete}
+              onCancel={cancelDelete}
+            />
+          )}
         </div>
       )}
     </div>
   );
 }
 
+// card layout
+
+const cardGridStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: '20px',
+  padding: '20px',
+  justifyItems: 'center',
+};
 export default Dashboard;

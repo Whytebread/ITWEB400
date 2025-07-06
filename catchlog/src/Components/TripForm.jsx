@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import CatchEntry from '../Components/CatchEntry.jsx';
 import { Link } from 'react-router-dom';
 
+
+// *******IMPROVEMENTS/CHANGES******//
+// either need to only have the catch delete button show if there is more than one catch entered or to not allow the delete if there is only one catch
+
 // ensures the form is blank and so initialData can contain data that may need to be edited in the future
 function TripForm({ onSubmit, initialData = null }) {
     const [formData, setFormData] = useState(
@@ -72,6 +76,7 @@ function TripForm({ onSubmit, initialData = null }) {
                     <div className="form-group">
                         <label>Body of Water</label>
                         <input
+                            name="bodyOfWater"
                             type="text"
                             placeholder="Lake, stream, river, pond"
                             value={formData.bodyOfWater}
@@ -84,6 +89,7 @@ function TripForm({ onSubmit, initialData = null }) {
                     <div className="form-group">
                         <label>Date</label>
                         <input
+                            name="catchDate"
                             type="date"
                             value={formData.catchDate}
                             onChange={handleInputChange}
@@ -95,6 +101,7 @@ function TripForm({ onSubmit, initialData = null }) {
                     <div className="form-group">
                         <label>Weather</label>
                         <input
+                            name="weather"
                             type="text"
                             placeholder="Weather (e.g., Sunny, 74°F)"
                             value={formData.weather}
@@ -106,6 +113,7 @@ function TripForm({ onSubmit, initialData = null }) {
                     <div className="form-group">
                         <label>Notes</label>
                         <textarea
+                            name="notes"
                             placeholder="Add additional notes (e.g., Best luck near reeds)"
                             value={formData.notes}
                             onChange={handleInputChange}

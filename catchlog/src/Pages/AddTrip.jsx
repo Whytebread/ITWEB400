@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripForm from '../Components/TripForm.jsx';
+import { useLocation } from 'react-router-dom';
 
-function AddTrip() {
+function AddTrip({ onSave }) {
     const navigate = useNavigate();
+    const location = useLocation();
+    const initialData = location.state?.initialData;
 
     const handleTripSubmit = (tripData) => {
-        console.log('Trip submitted:', tripData);
+        onSave(tripData);
         navigate('/');
     };
 
@@ -29,7 +32,7 @@ function AddTrip() {
 
 
             <div style={{ padding: '40px 20px' }}>
-                <TripForm onSubmit={handleTripSubmit} />
+                <TripForm initialData={initialData} onSubmit={handleTripSubmit} />
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ function App() {
 
   const handleTripEdit = (updatedTrip) => {
     setTrips((prev) =>
-      prev.map((t, idx) => (idx === updatedTrip.index ? updatedTrip : t))
+       prev.map((trip, i) => (i === updatedTrip.index ? updatedTrip : trip))
     );
   };
 

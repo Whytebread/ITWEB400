@@ -7,9 +7,8 @@ import { useNavigate } from 'react-router-dom';
 // ********IMPROVEMENTS/CHANGES*********//
 // need to have add trip button show if there are no trip cards populated
 
-function Dashboard() {
+function Dashboard({ trips, setTrips }) {
 
-  const [trips, setTrips] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [tripToDelete, setTripToDelete] = useState(null);
   const [tripToEdit, setTripToEdit] = useState(null);
@@ -35,11 +34,11 @@ const cancelDelete = () => {
 
 // passes the trip data and allows editing in the tripForm component
 const handleEdit = (trip, index) => {
-  Navigate("/edit", { state: { initialData: { ...trip, index } } });
+  navigate("/edit", { state: { initialData: { ...trip, index } } });
 };
 
 // allows navigation to the add trip page after the edit button is clicked
-const Navigate = useNavigate();
+const navigate = useNavigate();
 
   return (
     <div style={{ backgroundColor: "#DEF2F1", minHeight: "100vh" }}>
@@ -99,10 +98,7 @@ const Navigate = useNavigate();
             <TripCard
               key={index}
               trip={trip}
-              onEdit={() => {
-                setTripToEdit(trip);
-                Navigate('/add', {state: {initialData: trip } });
-               }}
+              onEdit={() => handleEdit(trip, index)}
               onRequestDelete={handleRequestDelete}
             />
           ))}

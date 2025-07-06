@@ -9,10 +9,10 @@ function AddTrip({ onSave, onEdit }) {
 
     const handleTripSubmit = (tripData) => {
         if (initialData && initialData.index !== undefined) {
-            // Edit mode
+            
             onEdit({ ...tripData, index: initialData.index });
         } else {
-            // Add mode
+            
             onSave(tripData);
         }
         navigate('/');

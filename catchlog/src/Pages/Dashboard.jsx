@@ -5,7 +5,6 @@ import Modal from '../Components/Modal';
 import { useNavigate } from 'react-router-dom';
 
 // ********IMPROVEMENTS/CHANGES*********//
-// need to have add trip button show if there are no trip cards populated
 
 function Dashboard({ trips, setTrips }) {
 
@@ -15,47 +14,42 @@ function Dashboard({ trips, setTrips }) {
 
   // shows the modal to confirm delete when delete button is clicked
   const handleRequestDelete = (trip) => {
-  setTripToDelete(trip);
-  setShowModal(true);
-};
+    setTripToDelete(trip);
+    setShowModal(true);
+  };
 
-// deletes the trip data shown in the card when the confirm delete button is clicked
-const confirmDelete = () => {
-  setTrips(prevTrips => prevTrips.filter(t => t !== tripToDelete));
-  setTripToDelete(null);
-  setShowModal(false);
-};
+  // deletes the trip data shown in the card when the confirm delete button is clicked
+  const confirmDelete = () => {
+    setTrips(prevTrips => prevTrips.filter(t => t !== tripToDelete));
+    setTripToDelete(null);
+    setShowModal(false);
+  };
 
-// cancels the delete action and closes the modal
-const cancelDelete = () => {
-  setTripToDelete(null);
-  setShowModal(false);
-};
+  // cancels the delete action and closes the modal
+  const cancelDelete = () => {
+    setTripToDelete(null);
+    setShowModal(false);
+  };
 
-// passes the trip data and allows editing in the tripForm component
-const handleEdit = (trip, index) => {
-  navigate("/edit", { state: { initialData: { ...trip, index } } });
-};
+  // passes the trip data and allows editing in the tripForm component
+  const handleEdit = (trip, index) => {
+    navigate("/edit", { state: { initialData: { ...trip, index } } });
+  };
 
-// allows navigation to the add trip page after the edit button is clicked
-const navigate = useNavigate();
+  // allows navigation to the add trip page after the edit button is clicked
+  const navigate = useNavigate();
 
   return (
     <div style={{ backgroundColor: "#DEF2F1", minHeight: "100vh" }}>
-      {/* Header */}
-      <header style={{
-        backgroundColor: "#2B7A78",
-        padding: "16px 24px",
-        color: "white"
-      }}>
-        <h1 style={{
-          margin: 0,
-          fontSize: "24px",
-          fontWeight: "bold"
-        }}>
-          CatchLog
-        </h1>
-      </header>
+
+<header style={headerStyle}>
+  <div style={headerContentStyle}>
+    <h1 style={titleStyle}>CatchLog</h1>
+    <Link to="/add">
+      <button style={addButtonStyle}>+ New Trip</button>
+    </Link>
+  </div>
+</header>
 
       {/* If no trips are logged, a display reflects this */}
       {trips.length === 0 ? (
@@ -93,15 +87,15 @@ const navigate = useNavigate();
         <div>
           {/* loop through trips and display each */}
 
-          <div style= {cardGridStyle}>
-          {trips.map((trip, index) => (
-            <TripCard
-              key={index}
-              trip={trip}
-              onEdit={() => handleEdit(trip, index)}
-              onRequestDelete={handleRequestDelete}
-            />
-          ))}
+          <div style={cardGridStyle}>
+            {trips.map((trip, index) => (
+              <TripCard
+                key={index}
+                trip={trip}
+                onEdit={() => handleEdit(trip, index)}
+                onRequestDelete={handleRequestDelete}
+              />
+            ))}
           </div>
 
           <p>You have {trips.length} trips logged.</p>
@@ -128,4 +122,34 @@ const cardGridStyle = {
   padding: '20px',
   justifyItems: 'center',
 };
+
+const headerStyle = {
+  backgroundColor: "#2B7A78",
+  padding: "16px 24px",
+  color: "white"
+};
+
+const headerContentStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center"
+};
+
+const titleStyle = {
+  margin: 0,
+  fontSize: "28px", 
+  fontWeight: "bold"
+};
+
+const addButtonStyle = {
+  backgroundColor: "#3AAFA9",
+  color: "white",
+  border: "none",
+  padding: "10px 20px",
+  borderRadius: "8px",
+  fontSize: "16px",
+  cursor: "pointer"
+};
+
+
 export default Dashboard;

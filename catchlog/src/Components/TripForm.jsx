@@ -16,6 +16,7 @@ function TripForm({ onSubmit, initialData = null }) {
             bodyOfWater: '',
             catchDate: '',
             weather: '',
+            temperature: '',
             notes: '',
             catches: [{ species: '', weight: '', length: '', bait: '' }],
         }
@@ -66,9 +67,9 @@ function TripForm({ onSubmit, initialData = null }) {
                 padding: '24px',
                 borderRadius: '12px',
                 boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-                maxWidth: '700px',   
+                maxWidth: '700px',
                 width: '100%',
-                margin: '0 auto',   
+                margin: '0 auto',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '16px'
@@ -119,6 +120,18 @@ function TripForm({ onSubmit, initialData = null }) {
                             type="text"
                             placeholder="(e.g., Sunny, 74°F)"
                             value={formData.weather}
+                            onChange={handleInputChange}
+                            style={inputStyle}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Temperature (°F)</label>
+                        <input
+                            name="temperature"
+                            type="number"
+                            placeholder="e.g., 74"
+                            value={formData.temperature}
                             onChange={handleInputChange}
                             style={inputStyle}
                         />
@@ -201,21 +214,21 @@ const buttonSecondary = {
 };
 
 const addCatchButtonStyle = {
-  backgroundColor: '#2B7A78',
-  color: '#fff',
-  border: 'none',
-  padding: '20px 16px',
-  borderRadius: '8px',
-  fontSize: '20px',
-  cursor: 'pointer',
-  marginTop: '10px'
+    backgroundColor: '#2B7A78',
+    color: '#fff',
+    border: 'none',
+    padding: '20px 16px',
+    borderRadius: '8px',
+    fontSize: '20px',
+    cursor: 'pointer',
+    marginTop: '10px'
 };
 
 const formGroupStyle = {
-  marginBottom: '16px',
-  display: 'flex',
-  flexDirection: 'column',
-  fontSize: "20px"
+    marginBottom: '16px',
+    display: 'flex',
+    flexDirection: 'column',
+    fontSize: "20px"
 };
 
 export default TripForm;

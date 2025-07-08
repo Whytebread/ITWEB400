@@ -5,6 +5,7 @@ function TripCard({ trip, onEdit, onRequestDelete }) {
         <div style={cardStyle}>
             <h2>{trip.bodyOfWater} - {trip.catchDate}</h2>
             <p><strong>Weather:</strong> {trip.weather}</p>
+            <p><strong>Temperature:</strong> {trip.temperature}°F</p>
             <p><strong>Notes:</strong> {trip.notes}</p>
 
             <div style={catchesSectionStyle}>

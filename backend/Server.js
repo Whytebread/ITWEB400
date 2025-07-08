@@ -9,22 +9,28 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/fishtracker')
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/CatchLog')
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.error('Mongo Error:', err));
 
-// Fish Schema
-const fishSchema = new mongoose.Schema({
-    species: String,
-    size: Number,     // in inches or cm
-    weight: Number,   // in pounds or kg
-    location: String,
+// Trip Schema
+const tripSchema = new mongoose.Schema({
+    bodyOfWater: String,
     weather: String,
-    dateTime: Date,
-    miscNotes: String
+    temperature: String,
+    catchDate: Date,
+    notes: String,
+        catches: [
+            {
+                species: String,
+                length: Number,
+                weight: Number,
+                bait: String
+            }
+        ]
 }, { timestamps: true });
 
-const Fish = mongoose.model('Fish', fishSchema);
+const Fish = mongoose.model('Trip', tripSchema);
 
 // Routes
 
@@ -34,7 +40,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // GET all fish
-app.get('/api/fish', async (req, res) => {
+app.get('/api/catchlog', async (req, res) => {
     try {
         const fishList = await Fish.find();
         res.json(fishList);
@@ -44,7 +50,7 @@ app.get('/api/fish', async (req, res) => {
 });
 
 // POST new fish
-app.post('/api/fish', async (req, res) => {
+app.post('/api/catchlog', async (req, res) => {
     try {
         if (!req.body.species) {
             return res.status(400).json({ msg: 'Species is required' });
@@ -58,7 +64,7 @@ app.post('/api/fish', async (req, res) => {
 });
 
 // GET single fish by ID
-app.get('/api/fish/:id', async (req, res) => {
+app.get('/api/catchlog/:id', async (req, res) => {
     try {
         const fish = await Fish.findById(req.params.id);
         if (!fish) return res.status(404).json({ msg: 'Fish not found' });
@@ -69,7 +75,7 @@ app.get('/api/fish/:id', async (req, res) => {
 });
 
 // PUT update fish
-app.put('/api/fish/:id', async (req, res) => {
+app.put('/api/catchlog/:id', async (req, res) => {
     try {
         const updatedFish = await Fish.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedFish) return res.status(404).json({ msg: 'Fish not found' });
@@ -80,7 +86,7 @@ app.put('/api/fish/:id', async (req, res) => {
 });
 
 // DELETE fish
-app.delete('/api/fish/:id', async (req, res) => {
+app.delete('/api/catchlog/:id', async (req, res) => {
     try {
         const deletedFish = await Fish.findByIdAndDelete(req.params.id);
         if (!deletedFish) return res.status(404).json({ msg: 'Fish not found' });
@@ -93,14 +99,14 @@ app.delete('/api/fish/:id', async (req, res) => {
 // Root endpoint
 app.get('/', (req, res) => {
     res.json({ 
-        message: 'Fish Tracker API', 
+        message: 'CatchLog API', 
         endpoints: [
             'GET /api/health',
-            'GET /api/fish',
-            'POST /api/fish',
-            'GET /api/fish/:id',
-            'PUT /api/fish/:id',
-            'DELETE /api/fish/:id'
+            'GET /api/catchlog',
+            'POST /api/catchlog',
+            'GET /api/catchlog/:id',
+            'PUT /api/catchlog/:id',
+            'DELETE /api/catchlog/:id'
         ]
     });
 });

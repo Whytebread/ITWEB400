@@ -27,7 +27,8 @@ const tripSchema = new mongoose.Schema({
             weight: Number,
             bait: String
         }
-    ]
+    ],
+    default: [],
 }, { timestamps: true });
 
 const Trip = mongoose.model('Trip', tripSchema);

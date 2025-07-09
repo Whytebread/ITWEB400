@@ -11,16 +11,17 @@ import { Link } from 'react-router-dom';
 
 // ensures the form is blank and so initialData can contain data that may need to be edited in the future
 function TripForm({ onSubmit, initialData = null }) {
-    const [formData, setFormData] = useState(
-        initialData || {
-            bodyOfWater: '',
-            catchDate: '',
-            weather: '',
-            temperature: '',
-            notes: '',
-            catches: [{ species: '', weight: '', length: '', bait: '' }],
-        }
-    );
+    const [formData, setFormData] = useState({
+        bodyOfWater: initialData?.bodyOfWater || '',
+        weather: initialData?.weather || '',
+        temperature: initialData?.temperature || '',
+        catchDate: initialData?.catchDate
+            ? new Date(initialData.catchDate).toISOString().split('T')[0]
+            : '',
+        notes: initialData?.notes || '',
+        catches: initialData?.catches || [],
+    });
+
 
     // records the values submitted in the input fields
     const handleInputChange = (e) => {
@@ -53,6 +54,11 @@ function TripForm({ onSubmit, initialData = null }) {
         e.preventDefault();
         onSubmit(formData); // sends all the data to AddTrip (or EditTrip)
     };
+
+    // reformats the date so it will be able to be passed to
+    const formattedDate = initialData.catchDate
+        ? new Date(initialData.catchDate).toISOString().split('T')[0]
+        : '';
 
     return (
 

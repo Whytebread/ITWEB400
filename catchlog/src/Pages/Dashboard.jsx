@@ -17,7 +17,10 @@ function Dashboard({ trips, setTrips }) {
   useEffect(() => {
     fetch('http://localhost:5002/api/trips')
       .then(res => res.json())
-      .then(data => setTrips(data))
+      .then(data => {
+        console.log("Fetched trips from backend:", data);
+      setTrips(data)
+      })
       .catch(err => console.error('Error fetching trips:', err));
   }, []);
 
@@ -108,7 +111,7 @@ function Dashboard({ trips, setTrips }) {
             {trips.map((trip, index) => (
               <TripCard
                 key={index}
-                trip={trip._id}
+                trip={trip}
                 onEdit={() => handleEdit(trip, index)}
                 onRequestDelete={handleRequestDelete}
               />

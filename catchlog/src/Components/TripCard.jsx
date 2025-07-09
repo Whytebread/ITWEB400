@@ -11,7 +11,7 @@ function TripCard({ trip, onEdit, onRequestDelete }) {
             <div style={catchesSectionStyle}>
                 <h4 style={catchesTitleStyle}>Catches</h4>
                 <ul style={catchListStyle}>
-                    {trip.catches.map((c, index) => (
+                    {Array.isArray(trip.catches) && trip.catches.map((c, index) => (
                         <li key={index}>
                             {c.species} — {c.weight} lbs, {c.length} in, Bait: {c.bait}
                         </li>

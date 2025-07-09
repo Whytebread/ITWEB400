@@ -14,9 +14,9 @@ function App() {
       },
       body: JSON.stringify(newTrip)
     })
-      .then(res => res.JSON())
+      .then(res => res.json())
       .then(savedTrip => {
-        setTrips(prev => [...trips, savedTrip]);
+        setTrips(prev => [...prev, savedTrip]);
       })
       .catch(err => console.error("Error saving trip", err));
   };

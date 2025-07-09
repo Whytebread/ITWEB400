@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TripCard from '../Components/TripCard';
 import Modal from '../Components/Modal';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+
 
 // ********IMPROVEMENTS/CHANGES*********//
 
@@ -108,7 +108,7 @@ function Dashboard({ trips, setTrips }) {
             {trips.map((trip, index) => (
               <TripCard
                 key={index}
-                trip={trip}
+                trip={trip._id}
                 onEdit={() => handleEdit(trip, index)}
                 onRequestDelete={handleRequestDelete}
               />

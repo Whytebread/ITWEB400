@@ -10,7 +10,7 @@ function AddTrip({ onSave, onEdit }) {
     const handleTripSubmit = (tripData) => {
         if (initialData && initialData.index !== undefined) {
             
-            onEdit({ ...tripData, index: initialData.index });
+            onEdit({ ...tripData, id_: initialData._id });
         } else {
             
             onSave(tripData);

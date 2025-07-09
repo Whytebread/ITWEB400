@@ -7,13 +7,33 @@ function App() {
   const [trips, setTrips] = useState([]);
 
   const handleTripSave = (newTrip) => {
-    setTrips(prev => [...trips, newTrip]);
+    fetch('http://localhost:5002/api/trips', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTrip)
+    })
+      .then(res => res.JSON())
+      .then(savedTrip => {
+        setTrips(prev => [...trips, savedTrip]);
+      })
+      .catch(err => console.error("Error saving trip", err));
   };
 
   const handleTripEdit = (updatedTrip) => {
-    setTrips((prev) =>
-       prev.map((trip, i) => (i === updatedTrip.index ? updatedTrip : trip))
-    );
+    fetch(`http://localhost:5002/api/trips/${updatedTrip._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedTrip)
+    })
+      .then(res => res.json())
+      .then(savedTrip => {
+        setTrips(prev => prev.map(t => t._id === savedTrip._id ? savedTrip : t));
+      })
+      .catch(err => console.error('Error editing trip:', err));
   };
 
   return (

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import TripCard from '../Components/TripCard';
 import Modal from '../Components/Modal';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // ********IMPROVEMENTS/CHANGES*********//
 
@@ -12,6 +13,14 @@ function Dashboard({ trips, setTrips }) {
   const [tripToDelete, setTripToDelete] = useState(null);
   const [tripToEdit, setTripToEdit] = useState(null);
 
+  // fetches the trip data from the backend
+  useEffect(() => {
+    fetch('http://localhost:5002/api/trips')
+      .then(res => res.json())
+      .then(data => setTrips(data))
+      .catch(err => console.error('Error fetching trips:', err));
+  }, []);
+
   // shows the modal to confirm delete when delete button is clicked
   const handleRequestDelete = (trip) => {
     setTripToDelete(trip);
@@ -20,9 +29,17 @@ function Dashboard({ trips, setTrips }) {
 
   // deletes the trip data shown in the card when the confirm delete button is clicked
   const confirmDelete = () => {
-    setTrips(prevTrips => prevTrips.filter(t => t !== tripToDelete));
-    setTripToDelete(null);
-    setShowModal(false);
+    fetch(`http://localhost:5002/api/trips/${tripToDelete._id}`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("Delete failed");
+        setTrips(prevTrips => prevTrips.filter(t => t !== tripToDelete));
+        setTripToDelete(null);
+        setShowModal(false);
+      })
+      .catch(err => console.log("Error deleting trip", err))
+      showModal(false)
   };
 
   // cancels the delete action and closes the modal
@@ -42,14 +59,14 @@ function Dashboard({ trips, setTrips }) {
   return (
     <div style={{ backgroundColor: "#DEF2F1", minHeight: "100vh" }}>
 
-<header style={headerStyle}>
-  <div style={headerContentStyle}>
-    <h1 style={titleStyle}>CatchLog</h1>
-    <Link to="/add">
-      <button style={addButtonStyle}>+ New Trip</button>
-    </Link>
-  </div>
-</header>
+      <header style={headerStyle}>
+        <div style={headerContentStyle}>
+          <h1 style={titleStyle}>CatchLog</h1>
+          <Link to="/add">
+            <button style={addButtonStyle}>+ New Trip</button>
+          </Link>
+        </div>
+      </header>
 
       {/* If no trips are logged, a display reflects this */}
       {trips.length === 0 ? (
@@ -137,7 +154,7 @@ const headerContentStyle = {
 
 const titleStyle = {
   margin: 0,
-  fontSize: "28px", 
+  fontSize: "28px",
   fontWeight: "bold"
 };
 

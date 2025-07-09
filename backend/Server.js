@@ -39,7 +39,7 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'CatchLog API is running' });
 });
 
-// GET all fish
+// GET all trips
 app.get('/api/trips', async (req, res) => {
     try {
         const tripList = await Trip.find();

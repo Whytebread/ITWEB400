@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 
 // ensures the form is blank and so initialData can contain data that may need to be edited in the future
 function TripForm({ onSubmit, initialData = null }) {
+    initialData = initialData || {};
     const [formData, setFormData] = useState({
         bodyOfWater: initialData?.bodyOfWater || '',
         weather: initialData?.weather || '',
@@ -55,10 +56,6 @@ function TripForm({ onSubmit, initialData = null }) {
         onSubmit(formData); // sends all the data to AddTrip (or EditTrip)
     };
 
-    // reformats the date so it will be able to be passed to
-    const formattedDate = initialData.catchDate
-        ? new Date(initialData.catchDate).toISOString().split('T')[0]
-        : '';
 
     return (
 

@@ -42,7 +42,7 @@ function Dashboard({ trips, setTrips }) {
         setShowModal(false);
       })
       .catch(err => console.log("Error deleting trip", err))
-      showModal(false)
+      setShowModal(false)
   };
 
   // cancels the delete action and closes the modal

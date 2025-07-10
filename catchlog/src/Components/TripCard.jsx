@@ -33,13 +33,12 @@ function TripCard({ trip, onEdit, onRequestDelete }) {
 };
 
 const cardStyle = {
-    backgroundColor: '#FFFFFF',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-    marginBottom: '20px',
-    width: '100%',
-    maxWidth: '350px',
+  width: '300px',
+  backgroundColor: '#FFFFFF',
+  padding: '20px',
+  borderRadius: '10px',
+  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+  marginBottom: '20px'
 };
 
 const buttonRow = {

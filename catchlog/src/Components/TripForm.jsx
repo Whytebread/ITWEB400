@@ -66,7 +66,9 @@ function TripForm({ onSubmit, initialData = null }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            padding: "40px 20px"
+            justifyContent: "center",
+            padding: "40px 20px",
+            width: "100%",
         }}>
             <div className="form-container" style={{
                 backgroundColor: '#FFFFFF',
@@ -80,7 +82,13 @@ function TripForm({ onSubmit, initialData = null }) {
                 flexDirection: 'column',
                 gap: '16px'
             }}>
-                <h2 style={{ color: '#2B7A78' }}>{initialData ? 'Edit Trip' : 'Add New Trip'}</h2>
+                <h2 style={{
+                    color: '#2B7A78',
+                    textAlign: 'center',
+                    marginBottom: '16px'
+                }}>
+                    {initialData ? 'Edit Trip' : 'Add New Trip'}
+                </h2>
 
                 <form style={{
                     backgroundColor: '#FFFFFF',
@@ -131,7 +139,7 @@ function TripForm({ onSubmit, initialData = null }) {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group" style={formGroupStyle}>
                         <label>Temperature (°F)</label>
                         <input
                             name="temperature"
@@ -155,8 +163,8 @@ function TripForm({ onSubmit, initialData = null }) {
                         />
                     </div>
 
-                    <div className="form-group" style={formGroupStyle}>
-                        <label>Catches</label>
+                    <div className="form-group" style={catchSectionStyle}>
+                        <h3 style={catchHeadingStyle}>Fish Caught</h3>
                         {formData.catches.map((catchData, index) => (
                             <div key={index}>
                                 <CatchEntry
@@ -167,7 +175,12 @@ function TripForm({ onSubmit, initialData = null }) {
                                 />
                             </div>
                         ))}
-                        <button type="button" className="btn-add-catch" style={addCatchButtonStyle} onClick={addCatch}>
+                        <button
+                            type="button"
+                            className="btn-add-catch"
+                            style={addCatchButtonStyle}
+                            onClick={addCatch}
+                        >
                             + Add Catch
                         </button>
                     </div>
@@ -206,16 +219,6 @@ const buttonPrimary = {
     cursor: 'pointer'
 };
 
-const buttonSecondary = {
-    backgroundColor: '#FF5C5C',
-    color: '#FFFFFF',
-    padding: '10px',
-    fontSize: '15px',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer'
-};
-
 const addCatchButtonStyle = {
     backgroundColor: '#2B7A78',
     color: '#fff',
@@ -233,5 +236,19 @@ const formGroupStyle = {
     flexDirection: 'column',
     fontSize: "20px"
 };
+
+const catchSectionStyle = {
+  backgroundColor: '#EDF7F6',
+  padding: '16px',
+  borderRadius: '10px',
+  marginTop: '10px'
+};
+
+const catchHeadingStyle = {
+  color: '#2B7A78',
+  fontSize: '20px',
+  marginBottom: '12px'
+};
+
 
 export default TripForm;

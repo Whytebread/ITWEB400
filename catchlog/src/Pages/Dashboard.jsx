@@ -137,11 +137,11 @@ function Dashboard({ trips, setTrips }) {
 // card layout
 
 const cardGridStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
   gap: '20px',
-  padding: '20px',
-  justifyItems: 'center',
+  padding: '20px'
 };
 
 const headerStyle = {

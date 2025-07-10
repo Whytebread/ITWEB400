@@ -1,15 +1,20 @@
 import React from 'react';
 
+// ***************IMPROVEMENTS****************
+// edit and remove buttons should be at the bottom of the card, not under catches because the size of the catch box can vary
+// date should display normally, not ISO or timestamp
+// more space between temperature and notes
+
 function TripCard({ trip, onEdit, onRequestDelete }) {
     return (
         <div style={cardStyle}>
             <h2>{trip.bodyOfWater} - {trip.catchDate}</h2>
-            <p><strong>Weather:</strong> {trip.weather}</p>
-            <p><strong>Temperature:</strong> {trip.temperature}°F</p>
-            <p><strong>Notes:</strong> {trip.notes}</p>
+            <p><strong>⛅️ Weather:</strong> {trip.weather}</p>
+            <p><strong>🌡️ Temperature:</strong> {trip.temperature}°F</p>
+            <p><strong>📝 Notes:</strong> {trip.notes}</p>
 
             <div style={catchesSectionStyle}>
-                <h4 style={catchesTitleStyle}>Catches</h4>
+                <h4 style={catchesTitleStyle}>🎣 Catches</h4>
                 <ul style={catchListStyle}>
                     {Array.isArray(trip.catches) && trip.catches.map((c, index) => (
                         <li key={index}>

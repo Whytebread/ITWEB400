@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 // ********IMPROVEMENTS/CHANGES*********//
+// fix cards getting smushed together on one line when there are numerous cards
 
 function Dashboard({ trips, setTrips }) {
 

@@ -6,7 +6,10 @@ import { Link } from 'react-router-dom';
 // *******IMPROVEMENTS/CHANGES******//
 // either need to only have the catch delete button show if there is more than one catch entered or to not allow the delete if there is only one catch
 // if no catch information is entered either display no catches or make it required, or a prompt that confirms no fish caught
-// maybe add clicking cancel brings back to the dashboard, or just remove cancel button
+// center the form and the heading for add and edit
+// Make the catch section a different color
+// either have the catch section display at first, or keep it covered until the add catch button is clicked
+// rename the Catches heading to Fish Caught
 
 
 // ensures the form is blank and so initialData can contain data that may need to be edited in the future
@@ -168,9 +171,6 @@ function TripForm({ onSubmit, initialData = null }) {
                             + Add Catch
                         </button>
                     </div>
-
-
-                    <button type="button" style={buttonSecondary}>Cancel</button>
 
                     <button type="submit" style={buttonPrimary}>Save Trip</button>
                 </form>

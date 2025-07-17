@@ -4,6 +4,8 @@ import Dashboard from "./Pages/Dashboard";
 import AddTrip from "./Pages/AddTrip";
 import LoginForm from './auth/LoginForm';
 import SignupForm from './auth/SignupForm';
+import Navbar from "./Components/NavBar";
+import { AuthProvider } from "./auth/AuthContext";
 
 function App() {
   const [trips, setTrips] = useState([]);
@@ -39,15 +41,18 @@ function App() {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Dashboard trips={trips} setTrips={setTrips} />} />
-        <Route path="/add" element={<AddTrip onSave={handleTripSave} />} />
-        <Route path="/edit" element={<AddTrip onEdit={handleTripEdit} />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignupForm />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Dashboard trips={trips} setTrips={setTrips} />} />
+          <Route path="/add" element={<AddTrip onSave={handleTripSave} />} />
+          <Route path="/edit" element={<AddTrip onEdit={handleTripEdit} />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

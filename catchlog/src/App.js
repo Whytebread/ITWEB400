@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
 import AddTrip from "./Pages/AddTrip";
-import LoginForm from './pages/LoginForm';
-import SignupForm from './pages/SignupForm';
+import LoginForm from './auth/LoginForm';
+import SignupForm from './auth/SignupForm';
 
 function App() {
   const [trips, setTrips] = useState([]);

@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 // ********IMPROVEMENTS/CHANGES*********//
-// fix cards getting smushed together on one line when there are numerous cards
+// expandable catches
+// weather api
+// user login
+// fish picture
 
 function Dashboard({ trips, setTrips }) {
 

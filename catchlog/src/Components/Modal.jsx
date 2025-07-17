@@ -1,8 +1,5 @@
 import React from 'react';
 
-// modal will need to show when delete/remove is clicked on both the tripform and tripcard
-// it will need to delete the current card or current entered catch
-// clicking cancel will need to hide or remove the modal
 
 
 function Modal({ message, onConfirm, onCancel }) {

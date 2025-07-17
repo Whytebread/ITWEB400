@@ -1,9 +1,7 @@
 import React from 'react';
 
 // ***************IMPROVEMENTS****************
-// edit and remove buttons should be at the bottom of the card, not under catches because the size of the catch box can vary
-// date should display normally, not ISO or timestamp
-// more space between temperature and notes
+
 
 function TripCard({ trip, onEdit, onRequestDelete }) {
     const formattedDate = new Date(trip.catchDate).toLocaleDateString(undefined, {
@@ -53,7 +51,7 @@ const cardStyle = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: '100%',
+    height: '500px',
 };
 
 const buttonRow = {
@@ -93,7 +91,8 @@ const catchesTitleStyle = {
     color: '#2B7A78',
     marginBottom: '8px',
     marginTop: "0px",
-    fontSize: '20px'
+    fontSize: '20px',
+    maxheight: '120px'
 };
 
 const catchListStyle = {

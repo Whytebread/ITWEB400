@@ -1,46 +1,49 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from "../auth/AuthContext";
 import { useNavigate } from 'react-router-dom';
 
-//sets initial empty state and navigation
-function Signup() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Signup = () => {
+  const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  //posts the submitted email and password to the database
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
-      //takes the user to the login component 
-      const data = await res.json();
-      if (res.ok) {
-        alert('Signup successful! Please login.');
-        navigate('/login');
-      } else {
-        alert(data.message || 'Signup failed');
-      }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await signup(form.email, form.password);
+      navigate("/"); 
     } catch (err) {
-      console.error('Signup error:', err);
+      setError("Signup failed");
     }
   };
 
   return (
     <div className="signup-form">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
+      <form onSubmit={handleSubmit}>
         <input
-          type="email" placeholder="Email"
-          value={email} onChange={(e) => setEmail(e.target.value)} required
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
         />
         <input
-          type="password" placeholder="Password"
-          value={password} onChange={(e) => setPassword(e.target.value)} required
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          required
         />
         <button type="submit">Sign Up</button>
       </form>

@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const Trip = mongoose.model('Trip', tripSchema);
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', userSchema);
 
 // Routes
 

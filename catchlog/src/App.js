@@ -4,7 +4,8 @@ import Dashboard from "./Pages/Dashboard";
 import AddTrip from "./Pages/AddTrip";
 import LoginForm from './auth/LoginForm';
 import SignupForm from './auth/SignupForm';
-import Navbar from "./Components/NavBar";
+import NavBar from "./Components/NavBar";
+import './App.css';
 import { AuthProvider } from "./auth/AuthContext";
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
+        <NavBar />
         <Routes>
           <Route path="/" element={<Dashboard trips={trips} setTrips={setTrips} />} />
           <Route path="/add" element={<AddTrip onSave={handleTripSave} />} />

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 
-const Navbar = () => {
+const NavBar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -11,24 +11,23 @@ const Navbar = () => {
     navigate("/login");
   };
 
-    return (
+  return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          CatchLog
-        </Link>
+        <Link to="/" className="navbar-logo">CatchLog</Link>
+
         <div className="navbar-links">
-          {!user ? (
-            <>
-              <Link to="/login" className="navbar-link">Login</Link>
-              <Link to="/signup" className="navbar-link">Signup</Link>
-            </>
-          ) : (
+          {user ? (
             <>
               <span className="navbar-user">Welcome, {user.email}</span>
               <button onClick={handleLogout} className="navbar-button">
                 Logout
               </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="navbar-link">Login</Link>
+              <Link to="/signup" className="navbar-link">Signup</Link>
             </>
           )}
         </div>
@@ -37,4 +36,6 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+
+export default NavBar;
+

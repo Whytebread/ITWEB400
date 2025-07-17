@@ -107,7 +107,9 @@ app.get('/', (req, res) => {
             'POST /api/trips',
             'GET /api/trips/:id',
             'PUT /api/trips/:id',
-            'DELETE /api/trips/:id'
+            'DELETE /api/trips/:id',
+            'POST /api/auth/login',
+            'POST /api/auth/signup'
         ]
     });
 });

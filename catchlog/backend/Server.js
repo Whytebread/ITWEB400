@@ -31,6 +31,20 @@ const tripSchema = new mongoose.Schema({
     default: [],
 }, { timestamps: true });
 
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+});
+
 const Trip = mongoose.model('Trip', tripSchema);
 
 // Routes

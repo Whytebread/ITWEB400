@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import TripCard from '../Components/TripCard';
 import Modal from '../Components/Modal';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
+
 
 
 // ********IMPROVEMENTS/CHANGES*********//
@@ -16,17 +18,23 @@ function Dashboard({ trips, setTrips }) {
   const [showModal, setShowModal] = useState(false);
   const [tripToDelete, setTripToDelete] = useState(null);
   const [tripToEdit, setTripToEdit] = useState(null);
+  const { token } = useAuth();
 
   // fetches the trip data from the backend
   useEffect(() => {
-    fetch('http://localhost:5002/api/trips')
+    if (!token) return; // Don’t fetch without auth
+    fetch('http://localhost:5002/api/trips', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
       .then(data => {
         console.log("Fetched trips from backend:", data);
-      setTrips(data)
+        setTrips(data)
       })
       .catch(err => console.error('Error fetching trips:', err));
-  }, []);
+  }, [token, setTrips]);
 
   // shows the modal to confirm delete when delete button is clicked
   const handleRequestDelete = (trip) => {
@@ -46,7 +54,7 @@ function Dashboard({ trips, setTrips }) {
         setShowModal(false);
       })
       .catch(err => console.log("Error deleting trip", err))
-      setShowModal(false)
+    setShowModal(false)
   };
 
   // cancels the delete action and closes the modal

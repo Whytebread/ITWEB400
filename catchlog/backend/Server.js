@@ -16,50 +16,14 @@ if (!JWT_SECRET) {
     process.exit(1);
 }
 
+//Import user and trip modules
+const User = require('./models/User');
+const Trip = require('./models/Trip');
+
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/CatchLog')
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.error('Mongo Error:', err));
-
-// Trip Schema
-const tripSchema = new mongoose.Schema({
-    bodyOfWater: String,
-    weather: String,
-    temperature: String,
-    catchDate: Date,
-    notes: String,
-    catches: [
-        {
-            species: String,
-            length: Number,
-            weight: Number,
-            bait: String
-        }
-    ],
-    default: [],
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    }
-}, { timestamps: true });
-
-// const userSchema = new mongoose.Schema({
-//   email: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//     lowercase: true,
-//     trim: true
-//   },
-//   password: {
-//     type: String,
-//     required: true
-//   }
-// });
-
-const Trip = mongoose.model('Trip', tripSchema);
-// const User = mongoose.model('User', userSchema);
 
 // Routes
 

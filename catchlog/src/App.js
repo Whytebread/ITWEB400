@@ -7,15 +7,18 @@ import SignupForm from './auth/SignupForm';
 import NavBar from "./Components/NavBar";
 import './App.css';
 import { AuthProvider } from "./auth/AuthContext";
+import { useAuth } from './auth/AuthContext';
 
 function App() {
   const [trips, setTrips] = useState([]);
+  const { token } = useAuth();
 
   const handleTripSave = (newTrip) => {
     fetch('http://localhost:5002/api/trips', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(newTrip)
     })
@@ -30,7 +33,8 @@ function App() {
     fetch(`http://localhost:5002/api/trips/${updatedTrip._id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(updatedTrip)
     })

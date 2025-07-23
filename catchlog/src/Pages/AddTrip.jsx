@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TripForm from '../Components/TripForm.jsx';
-import { AuthContext } from '..\auth\AuthContext.jsx';
+import { AuthContext } from '../auth/AuthContext.jsx';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5002';
 

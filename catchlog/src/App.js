@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
 import AddTrip from "./Pages/AddTrip";
@@ -11,7 +11,7 @@ import { useAuth } from './auth/AuthContext';
 
 function App() {
   const [trips, setTrips] = useState([]);
-  const { token } = useAuth();
+  const { user, token } = useAuth();
 
   const handleTripSave = (newTrip) => {
     fetch('http://localhost:5002/api/trips', {

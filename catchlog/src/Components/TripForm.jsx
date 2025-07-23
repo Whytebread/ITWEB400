@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CatchEntry from '../Components/CatchEntry.jsx';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '..\auth\AuthContext.jsx';
+import { AuthContext } from '../auth/AuthContext.jsx';
 
 
 

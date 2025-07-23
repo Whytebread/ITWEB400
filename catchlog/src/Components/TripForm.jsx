@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import CatchEntry from '../Components/CatchEntry.jsx';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '..\auth\AuthContext.jsx';
+
 
 
 // *******IMPROVEMENTS/CHANGES******//
@@ -11,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 // ensures the form is blank and so initialData can contain data that may need to be edited in the future
 function TripForm({ onSubmit, initialData = null }) {
+    const { user, getToken } = useContext(AuthContext);
     initialData = initialData || {};
     const [formData, setFormData] = useState({
         bodyOfWater: initialData?.bodyOfWater || '',

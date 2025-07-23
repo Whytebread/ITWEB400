@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const res = await fetch(`${API_BASE_URL}//api/auth/login`, {
+            const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,11 +58,17 @@ export const AuthProvider = ({ children }) => {
             const data = await res.json();
             setUser(data.user);
             localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('token', data.token);
         } catch (error) {
             console.error(error);
             throw error;
         }
     };
+
+    //Helper function to get token and use for future authenticated fetch calls
+    const getToken = () => {
+    return localStorage.getItem("token");
+};
 
 
     //Clears user from memory and localstorage
@@ -72,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout }}>
+        <AuthContext.Provider value={{ user, login, signup, logout, getToken }}>
             {children}
         </AuthContext.Provider>
     );

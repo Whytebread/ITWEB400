@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TripForm from '../Components/TripForm.jsx';
-import { AuthContext } from '../auth/AuthContext.jsx';
+import useAuth from "../hooks/useAuth";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5002';
 
@@ -10,7 +10,8 @@ function AddTrip({ onSave, onEdit }) {
     const location = useLocation();
     const initialData = location.state?.initialData;
 
-    const { getToken } = useContext(AuthContext);
+    const { getToken } = useAuth();
+    
 
     const handleTripSubmit = async (tripData) => {
         try {
@@ -20,6 +21,8 @@ function AddTrip({ onSave, onEdit }) {
                 : `${API_BASE_URL}/api/trips`;
 
             const method = initialData ? 'PUT' : 'POST';
+
+            console.log("Token being sent:", token); //debugging
 
             const res = await fetch(url, {
                 method,
@@ -31,6 +34,8 @@ function AddTrip({ onSave, onEdit }) {
             });
 
             if (!res.ok) {
+                const errorText = await res.text(); //debugging
+                console.error("Trip creation error response:", errorText); //debugging
                 throw new Error(`Trip ${initialData ? 'update' : 'creation'} failed`);
             }
 

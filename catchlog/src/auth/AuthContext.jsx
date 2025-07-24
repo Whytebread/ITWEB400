@@ -5,7 +5,10 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:500
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
 
 
     // Load user from localStorage when app starts
@@ -66,8 +69,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     //Helper function to get token and use for future authenticated fetch calls
-    const getToken = () => {
-    return localStorage.getItem("token");
+const getToken = () => {
+    const token = localStorage.getItem("token");
+    console.log("Retrieved token in getToken:", token); //debugging
+    return token;
 };
 
 
@@ -86,5 +91,5 @@ export const AuthProvider = ({ children }) => {
 };
 
 export function useAuth() {
-  return useContext(AuthContext);
+    return useContext(AuthContext);
 }

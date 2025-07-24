@@ -11,9 +11,10 @@ import { useAuth } from './auth/AuthContext';
 
 function App() {
   const [trips, setTrips] = useState([]);
-  const { user, token } = useAuth();
+  const { getToken } = useAuth();
 
   const handleTripSave = (newTrip) => {
+    const token = getToken();
     fetch('http://localhost:5002/api/trips', {
       method: 'POST',
       headers: {
@@ -30,6 +31,7 @@ function App() {
   };
 
   const handleTripEdit = (updatedTrip) => {
+    const token = getToken();
     fetch(`http://localhost:5002/api/trips/${updatedTrip._id}`, {
       method: 'PUT',
       headers: {

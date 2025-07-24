@@ -14,12 +14,7 @@ const tripSchema = new mongoose.Schema({
   catchDate: Date,
   notes: String,
   catches: {
-    type: [    {
-      species: String,
-      length: Number,
-      weight: Number,
-      bait: String
-    }],
+    type: [catchSchema],
     default: []
   },
   user: {

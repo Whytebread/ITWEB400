@@ -18,11 +18,16 @@ function Dashboard({ trips, setTrips }) {
   const [showModal, setShowModal] = useState(false);
   const [tripToDelete, setTripToDelete] = useState(null);
   const [tripToEdit, setTripToEdit] = useState(null);
-  const { token } = useAuth();
+  const { getToken } = useAuth();
+  
 
   // fetches the trip data from the backend
   useEffect(() => {
-    if (!token) return; // Don’t fetch without auth
+    const token = getToken();
+    if (!token) {
+      navigate('/login'); //Redirect to login if no token
+      return;
+    }
     fetch('http://localhost:5002/api/trips', {
       headers: {
         Authorization: `Bearer ${token}`
@@ -34,7 +39,7 @@ function Dashboard({ trips, setTrips }) {
         setTrips(data)
       })
       .catch(err => console.error('Error fetching trips:', err));
-  }, [token, setTrips]);
+  }, [getToken, setTrips, navigate]);
 
   // shows the modal to confirm delete when delete button is clicked
   const handleRequestDelete = (trip) => {
@@ -44,8 +49,12 @@ function Dashboard({ trips, setTrips }) {
 
   // deletes the trip data shown in the card when the confirm delete button is clicked
   const confirmDelete = () => {
+    const token = getToken();
     fetch(`http://localhost:5002/api/trips/${tripToDelete._id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(res => {
         if (!res.ok) throw new Error("Delete failed");

@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5002';
 
 export const AuthContext = createContext();
+
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(() => {
@@ -10,6 +12,14 @@ export const AuthProvider = ({ children }) => {
         return storedUser ? JSON.parse(storedUser) : null;
     });
 
+    const navigate = useNavigate();
+
+    const handleUnauthorized = () => {
+        setUser(null);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        navigate('/login');
+    };
 
     // Load user from localStorage when app starts
     useEffect(() => {
@@ -81,6 +91,7 @@ const getToken = () => {
         setUser(null);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        navigate('/login');
     };
 
     return (

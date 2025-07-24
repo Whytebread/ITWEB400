@@ -74,7 +74,7 @@ app.get('/api/trips/:id', async (req, res) => {
 });
 
 // PUT update trip
-app.put('/api/trips/:id', async (req, res) => {
+app.put('/api/trips/:id', requireAuth, async (req, res) => {
     try {
         const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedTrip) return res.status(404).json({ msg: 'Trip not found' });
@@ -85,7 +85,7 @@ app.put('/api/trips/:id', async (req, res) => {
 });
 
 // DELETE trip
-app.delete('/api/trips/:id', async (req, res) => {
+app.delete('/api/trips/:id', requireAuth, async (req, res) => {
     try {
         const deletedTrip = await Trip.findByIdAndDelete(req.params.id);
         if (!deletedTrip) return res.status(404).json({ msg: 'Trip not found' });

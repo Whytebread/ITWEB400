@@ -26,9 +26,9 @@ const Login = () => {
   };
 
   return (
-    <div className="login-form">
-      <h2>Login</h2>
-  <form onSubmit={handleSubmit}>
+    <div className="auth-container">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h2>Login</h2>
         <input
           type="email"
           name="email"
@@ -45,10 +45,14 @@ const Login = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Login</button>
+        {error && <div className="error">{error}</div>}
+        <button type="submit">Log In</button>
+        <div className="link-text">
+          Don't have an account? <a href="/signup">Sign Up</a>
+        </div>
       </form>
     </div>
   );
-}
+};
 
 export default Login;

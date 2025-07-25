@@ -20,7 +20,7 @@ function Dashboard({ trips, setTrips }) {
   const [tripToEdit, setTripToEdit] = useState(null);
   const { getToken } = useAuth();
   const navigate = useNavigate();
-  
+
 
   // fetches the trip data from the backend
   useEffect(() => {
@@ -37,7 +37,13 @@ function Dashboard({ trips, setTrips }) {
       .then(res => res.json())
       .then(data => {
         console.log("Fetched trips from backend:", data);
-        setTrips(data)
+        //prevents a crash when a new user signs up and will return and empty array because there are no trips yet to fetch
+        if (Array.isArray(data)) {
+          setTrips(data);
+        } else {
+          console.log("Expected an array, got:", data);
+          setTrips([]); 
+        }
       })
       .catch(err => console.error('Error fetching trips:', err));
   }, [getToken, setTrips, navigate]);

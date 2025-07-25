@@ -19,6 +19,7 @@ function Dashboard({ trips, setTrips }) {
   const [tripToDelete, setTripToDelete] = useState(null);
   const [tripToEdit, setTripToEdit] = useState(null);
   const { getToken } = useAuth();
+  const navigate = useNavigate();
   
 
   // fetches the trip data from the backend
@@ -76,9 +77,6 @@ function Dashboard({ trips, setTrips }) {
   const handleEdit = (trip, index) => {
     navigate("/edit", { state: { initialData: { ...trip, index } } });
   };
-
-  // allows navigation to the add trip page after the edit button is clicked
-  const navigate = useNavigate();
 
   return (
     <div style={{ backgroundColor: "#DEF2F1", minHeight: "100vh" }}>

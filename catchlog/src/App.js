@@ -6,7 +6,6 @@ import LoginForm from './auth/LoginForm';
 import SignupForm from './auth/SignupForm';
 import NavBar from "./Components/NavBar";
 import './App.css';
-import { AuthProvider } from "./auth/AuthContext";
 import { useAuth } from './auth/AuthContext';
 
 function App() {
@@ -48,7 +47,6 @@ function App() {
   };
 
   return (
-    <AuthProvider>
       <Router>
         <NavBar />
         <Routes>
@@ -59,7 +57,6 @@ function App() {
           <Route path="/signup" element={<SignupForm />} />
         </Routes>
       </Router>
-    </AuthProvider>
   );
 }
 

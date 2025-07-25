@@ -12,14 +12,6 @@ export const AuthProvider = ({ children }) => {
         return storedUser ? JSON.parse(storedUser) : null;
     });
 
-    const navigate = useNavigate();
-
-    const handleUnauthorized = () => {
-        setUser(null);
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        navigate('/login');
-    };
 
     // Load user from localStorage when app starts
     useEffect(() => {
@@ -91,7 +83,6 @@ const getToken = () => {
         setUser(null);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        navigate('/login');
     };
 
     return (

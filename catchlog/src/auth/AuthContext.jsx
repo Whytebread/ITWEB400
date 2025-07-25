@@ -56,11 +56,13 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password }),
             });
 
+            const data = await res.json();
+
             if (!res.ok) {
-                throw new Error('Signup failed');
+                throw new Error(data.message || "Signup failed");
             }
 
-            const data = await res.json();
+            
             setUser(data.user);
             localStorage.setItem('user', JSON.stringify(data.user));
             localStorage.setItem('token', data.token);

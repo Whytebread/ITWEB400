@@ -3,6 +3,7 @@ import { AuthContext } from "../auth/AuthContext";
 import { useNavigate } from 'react-router-dom';
 
 
+
 const Signup = () => {
   const { signup } = useContext(AuthContext);
   const navigate = useNavigate();

@@ -80,6 +80,7 @@
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .auth-form h2 {

@@ -87,15 +87,6 @@ function Dashboard({ trips, setTrips }) {
   return (
     <div style={{ backgroundColor: "#DEF2F1", minHeight: "100vh" }}>
 
-      <header style={headerStyle}>
-        <div style={headerContentStyle}>
-          <h1 style={titleStyle}>CatchLog</h1>
-          <Link to="/add">
-            <button style={addButtonStyle}>+ New Trip</button>
-          </Link>
-        </div>
-      </header>
-
       {/* If no trips are logged, a display reflects this */}
       {trips.length === 0 ? (
         <main style={{

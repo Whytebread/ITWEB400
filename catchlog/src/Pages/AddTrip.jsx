@@ -22,8 +22,6 @@ function AddTrip({ onSave, onEdit }) {
 
             const method = initialData ? 'PUT' : 'POST';
 
-            console.log("Token being sent:", token); //debugging
-
             const res = await fetch(url, {
                 method,
                 headers: {
